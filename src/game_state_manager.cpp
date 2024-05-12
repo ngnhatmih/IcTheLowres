@@ -6,32 +6,41 @@ GameStateManager::~GameStateManager() {}
 void GameStateManager::pushState(GameState *state)
 {
     states.push_back(state);
+    states.back()->onEnter();
 }
 
 void GameStateManager::popState()
 {
-    states.pop_back();
+    if (!states.empty()) {
+        if (states.back()->onExit()) {
+            delete states.back();
+            states.pop_back();
+        }
+    }
 }
 
 void GameStateManager::changeState(GameState *state)
 {
     if (!states.empty()) {
-        popState();
+        if (states.back()->onExit()) {
+            delete states.back();
+            states.pop_back();
+        }
     }
     pushState(state);
-}
-
-void GameStateManager::handleEvents()
-{
-    states.back()->handleEvents();
+    states.back()->onEnter();
 }
 
 void GameStateManager::update()
 {
-    states.back()->update();
+    if (!states.empty()) {
+        states.back()->update();
+    }
 }
 
 void GameStateManager::render()
 {
-    states.back()->render();
+    if (!states.empty()) {
+        states.back()->render();
+    }
 }
