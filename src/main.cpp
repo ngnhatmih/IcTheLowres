@@ -1,7 +1,6 @@
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "constant.h"
 
 using namespace std;
 
@@ -10,16 +9,16 @@ SDL_Renderer *g_renderer = 0;
 
 int main(int argc, char *argv[])
 {
-    if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
+    if(SDL_InitSubSystem(SDL_INIT_VIDEO) == 0)
     {
-        g_window = SDL_CreateWindow("Outcast-25", WIDTH, HEGIHT, 0);
+        g_window = SDL_CreateWindow("ICTL", 300, 200, 0);
         if (g_window == nullptr)
         {
             cout << "Could not create window" << SDL_GetError() << endl;
         }
         else 
         {
-            g_renderer = SDL_CreateRenderer(g_window, 0, SDL_RENDERER_ACCELERATED);
+            g_renderer = SDL_CreateRenderer(g_window, 0, 0);
         }
     }
     else { return EXIT_FAILURE; }

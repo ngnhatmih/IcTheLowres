@@ -3,13 +3,8 @@ cmake_minimum_required(VERSION 3.21)
 # project name
 project(ICTL VERSION "0.0.1")
 
-# Set dir variables
-set(INCLUDE ${PROJECT_SOURCE_DIR}/include)
-set(SDL3 ${PROJECT_SOURCE_DIR}/vendor/sdl)
-set(SDL3_IMAGE ${PROJECT_SOURCE_DIR}/vendor/sdl_image)
-set(ASSETS ${PROJECT_SOURCE_DIR}/assets)
-
 # Bring assets to build directory
+set(ASSETS ${PROJECT_SOURCE_DIR}/assets)
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR})
 
 # Set the executable file for the project
@@ -29,17 +24,17 @@ endif()
 option(SDL_TEST OFF)
 
 # Build the submodules along with the project
-add_subdirectory(SDL3)
-add_subdirectory(SDL3_IMAGE)
+add_subdirectory(vendor/sdl)
+add_subdirectory(vendor/sdl_image)
 
 # Force minimum compatability to be with C++14
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 
 # Add includes for the project
 target_include_directories(
-	${PROJECT_NAME} PRIVATE INCLUDE
-    ${PROJECT_NAME} PRIVATE SDL3
-	${PROJECT_NAME} PRIVATE SDL3_IMAGE
+	${PROJECT_NAME} PRIVATE include
+    ${PROJECT_NAME} PRIVATE vendor/sdl/include
+	${PROJECT_NAME} PRIVATE vendor/sdl_image/include
 )
 
 # Add and link libraries to project
