@@ -47,3 +47,5 @@ void Game::clean() {
     SDL_DestroyWindow(g_window);
     SDL_Quit();
 }
+
+Game::~Game() {}
