@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.21)
 
 # set the output directory for built objects.
 # This makes sure that the dynamic library goes into the build directory automatically.
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # project name
 project(ICTL VERSION "0.0.1")
@@ -38,7 +38,7 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
 # Add includes for the project
 target_include_directories(
 	${PROJECT_NAME} PRIVATE include
-    ${PROJECT_NAME} PRIVATE vendor/sdl/include
+	${PROJECT_NAME} PRIVATE vendor/sdl/include
 	${PROJECT_NAME} PRIVATE vendor/sdl_image/include
 )
 
