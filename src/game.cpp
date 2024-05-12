@@ -1,4 +1,7 @@
 #include "game.h"
+#include "sudoku.h"
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_main.h>
 
 Game::Game() {
     g_window = nullptr;
