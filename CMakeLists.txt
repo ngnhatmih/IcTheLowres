@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
 
+# set the output directory for built objects.
+# This makes sure that the dynamic library goes into the build directory automatically.
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 # project name
 project(ICTL VERSION "0.0.1")
 
