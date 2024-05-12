@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 #include <SDL3/SDL.h>
+#include "game_state_manager.h"
 
 class Game {
 public:
@@ -19,6 +20,8 @@ public:
     void clean();
     bool running() { return is_running; }
 
+    GameStateManager *getGameStateManager() { return gsm; }
+
 private:
     Game();
     ~Game();
@@ -26,6 +29,8 @@ private:
     SDL_Window *g_window;
     SDL_Renderer *g_renderer;
     bool is_running;
+
+    GameStateManager *gsm;
 };
 
 #endif // GAME_H

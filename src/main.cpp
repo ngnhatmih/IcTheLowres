@@ -22,5 +22,7 @@ int main(int argc, char *argv[])
     sudoku.init(4);
     sudoku.solve();
     sudoku.display();
+    sudoku.clear();
+    sudoku.display();
     return EXIT_SUCCESS;
 }

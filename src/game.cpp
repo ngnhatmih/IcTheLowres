@@ -1,5 +1,6 @@
 #include "game.h"
 #include "sudoku.h"
+#include "input_handler.h"
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -29,20 +30,18 @@ bool Game::init(const char *title, int width, int height) {
     return true;
 }
 
+void Game::render() {
+    SDL_RenderClear(g_renderer);
+    gsm->render();
+    SDL_RenderPresent(g_renderer);
+}
+
 void Game::handleEvents() {
-    SDL_Event event;
-    while(SDL_PollEvent(&event))
-    {
-        if(event.type == SDL_EVENT_QUIT)
-        {
-            is_running = false;
-        }
-    }
+    InputHandler::getInstance().update();
 }
 
 void Game::update() {
-    SDL_RenderClear(g_renderer);
-    SDL_RenderPresent(g_renderer);
+    gsm->update();
 }
 
 void Game::clean() {

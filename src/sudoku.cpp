@@ -1,11 +1,17 @@
 #include "sudoku.h"
-#include "math.h"
 #include <random>
 #include <algorithm>
 #include <iostream>
 
 void Sudoku::init(int grid_size) {
-    int size = pow(grid_size, 2);
+    if (board != nullptr) {
+        for (int i = 0; i < grid_size * grid_size; i++) {
+            delete[] board[i];
+        }
+        delete[] board;
+    }
+    
+    int size = grid_size * grid_size;
     this->grid_size = grid_size;
     this->board = new int*[size];
     for (int i = 0; i < size; i++) {
@@ -17,7 +23,7 @@ void Sudoku::init(int grid_size) {
 }
 
 bool Sudoku::is_valid(int row, int col, int num) {
-    for (int i = 0; i < pow(grid_size, 2); i++) {
+    for (int i = 0; i < grid_size * grid_size; i++) {
         if (board[row][i] == num || board[i][col] == num) {
             return false;
         }
@@ -37,7 +43,7 @@ bool Sudoku::is_valid(int row, int col, int num) {
 }
 
 bool Sudoku::solve() {
-    int size = pow(grid_size, 2);
+    int size = grid_size * grid_size;
     int *possible_nums = new int[size];
     for (int i = 0; i < size; i++) {
         possible_nums[i] = i + 1;
@@ -66,8 +72,17 @@ bool Sudoku::solve() {
     return true;
 }
 
+void Sudoku::clear() {
+    int size = grid_size * grid_size;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            board[i][j] = 0;
+        }
+    }
+}
+
 void Sudoku::display() {
-    int size = pow(grid_size, 2);
+    int size = grid_size * grid_size;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             std::cout << board[i][j] << " ";
@@ -79,7 +94,7 @@ void Sudoku::display() {
 Sudoku::Sudoku() {}
 
 Sudoku::~Sudoku() {
-    for (int i = 0; i < pow(grid_size, 2); i++) {
+    for (int i = 0; i < grid_size * grid_size; i++) {
         delete[] board[i];
     }
     delete[] board;
