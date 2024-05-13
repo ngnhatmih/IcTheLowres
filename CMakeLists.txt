@@ -13,15 +13,6 @@ set(ASSETS ${PROJECT_SOURCE_DIR}/assets)
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR})
 
 # Set the executable file for the project
-set (SOURCE_FILES
-	src/state.cpp
-	src/main_menu.cpp
-	src/game.cpp
-	src/input.cpp
-	src/sudoku.cpp 
-	src/vector2d.cpp
-	src/main.cpp
-)
 set(SOURCE_FILES
 	src/main_menu.cpp
 	src/game.cpp

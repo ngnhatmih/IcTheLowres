@@ -23,7 +23,7 @@ bool Game::init(const char *title, int width, int height) {
         }
     }
     else { return false; }
-    
+
     input = new Input();
     current_state = new MainMenu();
     return true;
@@ -32,6 +32,7 @@ bool Game::init(const char *title, int width, int height) {
 void Game::render() {
     SDL_RenderClear(g_renderer);
     current_state->render();
+    SDL_SetRenderDrawColor(g_renderer, 255, 0, 0, 255);
     SDL_RenderPresent(g_renderer);
 }
 
