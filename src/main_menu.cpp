@@ -3,7 +3,7 @@
 MainMenu::MainMenu() {
     play_button = 
     { 
-        {0., 0., 50., 50.}, // rect
+        {800/2 - BUTTON_WIDTH/2., 600/2 - BUTTON_HEIGHT/2., BUTTON_WIDTH, BUTTON_HEIGHT}, // rect
         {22, 22, 22, 255}, // color
         false // pressed
     };
