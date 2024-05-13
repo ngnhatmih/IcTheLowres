@@ -13,7 +13,12 @@ set(ASSETS ${PROJECT_SOURCE_DIR}/assets)
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR})
 
 # Set the executable file for the project
-file(GLOB_RECURSE SOURCE_FILES "src/*.cpp")
+set (SOURCE_FILES 
+	src/main.cpp
+	src/game.cpp
+	src/sudoku.cpp
+	src/vector2d.cpp
+)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Make sure submodules exist before building

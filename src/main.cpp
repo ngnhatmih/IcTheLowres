@@ -1,5 +1,4 @@
-#include "game.cpp"
-#include "sudoku.cpp"
+#include "sudoku.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,10 +18,8 @@ int main(int argc, char *argv[])
     // game.clean();
 
     Sudoku &sudoku = Sudoku::getInstance();
-    sudoku.init(4);
+    sudoku.init(2);
     sudoku.solve();
-    sudoku.display();
-    sudoku.clear();
     sudoku.display();
     return EXIT_SUCCESS;
 }

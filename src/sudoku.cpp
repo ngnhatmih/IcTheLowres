@@ -1,7 +1,4 @@
 #include "sudoku.h"
-#include <random>
-#include <algorithm>
-#include <iostream>
 
 void Sudoku::init(int grid_size) {
     if (board != nullptr) {

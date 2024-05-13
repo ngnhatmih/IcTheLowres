@@ -1,6 +1,10 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 
+#include <random>
+#include <algorithm>
+#include <iostream>
+
 class Sudoku {
 public:
     static Sudoku& getInstance() {
