@@ -21,6 +21,7 @@ public:
     void onMouseButtonDown(SDL_Event &event);
     void onMouseButtonUp(SDL_Event &event);
     Vector2D *getMousePosition() { return mouse_position; }
+    bool getMouseButtonDown(MouseButtons button) { return mouse_buttons[button]; }
 
 private:
     Vector2D *mouse_position;

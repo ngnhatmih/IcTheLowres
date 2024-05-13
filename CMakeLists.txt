@@ -19,6 +19,7 @@ set(SOURCE_FILES
 	src/input.cpp
 	src/sudoku.cpp 
 	src/vector2d.cpp
+	src/play.cpp
 	src/main.cpp
 )
 

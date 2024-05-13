@@ -23,6 +23,8 @@ public:
     void setRunning(bool running) { is_running = running; }
 
     SDL_Renderer *getRenderer() { return g_renderer; }
+    SDL_Window *getWindow() { return g_window; }
+    Input *getInput() { return input; }
 
 private:
     Game();

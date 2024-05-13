@@ -11,6 +11,7 @@ struct Button {
     SDL_FRect rect;
     SDL_Color color;
     bool pressed;
+    bool hover;
 };
 
 class MainMenu: public State {
