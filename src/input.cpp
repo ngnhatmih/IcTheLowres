@@ -9,7 +9,7 @@ void Input::update()
         switch(event.type)
         {
             case SDL_EVENT_QUIT:
-                Game::getInstance().clean();
+                Game::getInstance().setRunning(false);
                 break;
             case SDL_EVENT_MOUSE_MOTION:
                 onMouseMove(event);
@@ -30,6 +30,7 @@ void Input::onMouseMove(SDL_Event &event)
 {
     mouse_position->setX(event.motion.x);
     mouse_position->setY(event.motion.y);
+    SDL_Log("Mouse motion pos x: %d, y: %d", event.motion.x, event.motion.y);
 }
 
 void Input::onMouseButtonDown(SDL_Event &event)

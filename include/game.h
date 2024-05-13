@@ -1,6 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include <SDL3/SDL.h>
+
+#include "main_menu.h"
+#include "input.h"
 
 class Game {
 public:
@@ -18,6 +20,7 @@ public:
     void handleEvents();
     void clean();
     bool running() { return is_running; }
+    void setRunning(bool running) { is_running = running; }
 
 private:
     Game();
@@ -26,6 +29,9 @@ private:
     SDL_Window *g_window;
     SDL_Renderer *g_renderer;
     bool is_running;
+
+    Input *input;
+    State *current_state;
 };
 
 #endif // GAME_H

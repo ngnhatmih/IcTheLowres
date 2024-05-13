@@ -4,10 +4,12 @@ Game::Game() {
     g_window = nullptr;
     g_renderer = nullptr;
     is_running = true;
+    input = nullptr;
+    current_state = nullptr;
 }
 
 bool Game::init(const char *title, int width, int height) {
-    if(SDL_InitSubSystem(SDL_INIT_VIDEO) == 0)
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_CAMERA | SDL_INIT_TIMER) == 0)
     {
         g_window = SDL_CreateWindow(title, width, height, 0);
         if (g_window == nullptr)
@@ -23,23 +25,23 @@ bool Game::init(const char *title, int width, int height) {
     else { return false; }
 
     SDL_SetRenderDrawColor(g_renderer, 0, 20, 255, SDL_ALPHA_OPAQUE);
+    input = new Input();
+    current_state = new MainMenu();
     return true;
 }
 
+void Game::render() {
+    SDL_RenderClear(g_renderer);
+    current_state->render();
+    SDL_RenderPresent(g_renderer);
+}
+
 void Game::handleEvents() {
-    SDL_Event event;
-    while(SDL_PollEvent(&event))
-    {
-        if(event.type == SDL_EVENT_QUIT)
-        {
-            is_running = false;
-        }
-    }
+    input->update();
 }
 
 void Game::update() {
-    SDL_RenderClear(g_renderer);
-    SDL_RenderPresent(g_renderer);
+    current_state->update();
 }
 
 void Game::clean() {

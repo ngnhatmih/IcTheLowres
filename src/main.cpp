@@ -1,25 +1,23 @@
 #include "sudoku.h"
+#include "game.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
-    // Game &game = Game::getInstance();
-    // if(!game.init("ICTL", 800, 600))
-    // {
-    //     cout << "Failed to initialize game" << endl;
-    //     return EXIT_FAILURE;
-    // }
+    Game &game = Game::getInstance();
+    if(!game.init("ICTL", 800, 600))
+    {
+        SDL_Log("Failed to initialize game");
+        return EXIT_FAILURE;
+    }
 
-    // while(game.running())
-    // {
-    //     game.handleEvents();
-    //     game.update();
-    // }
+    while(game.running())
+    {
+        game.handleEvents();
+        game.update();
+    }
 
-    // game.clean();
+    game.clean();
 
-    Sudoku &sudoku = Sudoku::getInstance();
-    sudoku.init(2);
-    sudoku.solve();
-    sudoku.display();
     return EXIT_SUCCESS;
 }

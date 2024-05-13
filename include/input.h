@@ -20,6 +20,7 @@ public:
     void onMouseMove(SDL_Event &event);
     void onMouseButtonDown(SDL_Event &event);
     void onMouseButtonUp(SDL_Event &event);
+    Vector2D *getMousePosition() { return mouse_position; }
 
 private:
     Vector2D *mouse_position;
