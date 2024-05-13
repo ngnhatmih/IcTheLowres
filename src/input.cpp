@@ -55,13 +55,13 @@ void Input::onMouseButtonUp(SDL_Event &event)
     switch (event.button.button)
     {
         case SDL_BUTTON_LEFT:
-            mouse_buttons[LEFT] = true;
+            mouse_buttons[LEFT] = false;
             break;
         case SDL_BUTTON_MIDDLE:
-            mouse_buttons[MIDDLE] = true;
+            mouse_buttons[MIDDLE] = false;
             break;
         case SDL_BUTTON_RIGHT:
-            mouse_buttons[RIGHT] = true;
+            mouse_buttons[RIGHT] = false;
             break;
         default:
             break;

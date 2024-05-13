@@ -30,16 +30,21 @@ bool Game::init(const char *title, int width, int height) {
 }
 
 void Game::render() {
+    // delete old frame
     SDL_RenderClear(g_renderer);
+    // draw new frame
     current_state->render();
+    // load new frame
     SDL_RenderPresent(g_renderer);
 }
 
 void Game::handleEvents() {
+    // handle updated input
     input->update();
 }
 
 void Game::update() {
+    // update game state
     current_state->update();
 }
 
