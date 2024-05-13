@@ -17,7 +17,8 @@ MainMenu::~MainMenu() {
 }
 
 void MainMenu::update() {
-    if (play_button.pressed) {
+    // press button and wait to release
+    if (play_button.pressed && !Game::getInstance().getInput()->getMouseButtonDown(MouseButtons::LEFT)) {
         Game::getInstance().changeState(new Play());
     }
 
