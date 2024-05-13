@@ -4,8 +4,8 @@
 
 MainMenu::MainMenu() {
     play_button = 
-    { 
-        {800/2 - BUTTON_WIDTH/2., 600/2 - BUTTON_HEIGHT/2., BUTTON_WIDTH, BUTTON_HEIGHT}, // rect
+    { // why this is able to do
+        {(WINDOW_WIDTH-BUTTON_WIDTH)/2., (WINDOW_HEIGHT-BUTTON_HEIGHT)/2., BUTTON_WIDTH, BUTTON_HEIGHT}, // rect
         {22, 22, 22, 255}, // color
         false, // pressed
         false // hover
@@ -22,6 +22,7 @@ void MainMenu::update() {
         Game::getInstance().changeState(new Play());
     }
 
+    // detect hovering
     Vector2D *pos = Game::getInstance().getInput()->getMousePosition();
     if (pos->getX() > play_button.rect.x && pos->getX() < play_button.rect.x + play_button.rect.w &&
         pos->getY() > play_button.rect.y && pos->getY() < play_button.rect.y + play_button.rect.h) {
@@ -30,12 +31,14 @@ void MainMenu::update() {
         play_button.hover = false;
     }
 
+    // detect pressing
     if (play_button.hover && Game::getInstance().getInput()->getMouseButtonDown(MouseButtons::LEFT)) {
         play_button.pressed = true;
     } else {
         play_button.pressed = false;
     }
 
+    // change color based on hover and press
     if (play_button.hover) {
         if (play_button.pressed) {
             // green
@@ -57,7 +60,7 @@ void MainMenu::render() {
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), play_button.color.r, play_button.color.g, play_button.color.b, play_button.color.a);
     SDL_RenderFillRect(Game::getInstance().getRenderer(), &play_button.rect);
 
-    // dark grey
+    // dark grey background
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 44, 44, 44, 255);
 }
 

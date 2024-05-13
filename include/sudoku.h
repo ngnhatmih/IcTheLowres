@@ -7,25 +7,25 @@
 
 class Sudoku {
 public:
-    static Sudoku& getInstance() {
-        static Sudoku instance;
-        return instance;
+    Sudoku() : block_size(0), board(nullptr) {}
+    ~Sudoku() {
+        if (board != nullptr) {
+            for (int i = 0; i < block_size * block_size; i++) {
+                delete[] board[i];
+            }
+            delete[] board;
+        }
     }
-
-    Sudoku(Sudoku const&) = delete;
-    void operator=(Sudoku const&) = delete;
-
-    int get_grid_size() { return grid_size; }
-    void init(int grid_size);
+    int get_block_size() { return block_size; }
+    int get_cell(int row, int col) { return board[row][col]; }
+    void init(int block_size);
     bool is_valid(int row, int col, int num);
     bool solve();
     void display();
     void clear();
     
 private:
-    Sudoku();
-    ~Sudoku();
-    int grid_size;
+    int block_size;
     int **board;
 };
 

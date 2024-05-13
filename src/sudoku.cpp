@@ -1,15 +1,15 @@
 #include "sudoku.h"
 
-void Sudoku::init(int grid_size) {
+void Sudoku::init(int block_size) {
     if (board != nullptr) {
-        for (int i = 0; i < grid_size * grid_size; i++) {
+        for (int i = 0; i < block_size * block_size; i++) {
             delete[] board[i];
         }
         delete[] board;
     }
     
-    int size = grid_size * grid_size;
-    this->grid_size = grid_size;
+    int size = block_size * block_size;
+    this->block_size = block_size;
     this->board = new int*[size];
     for (int i = 0; i < size; i++) {
         this->board[i] = new int[size];
@@ -20,16 +20,16 @@ void Sudoku::init(int grid_size) {
 }
 
 bool Sudoku::is_valid(int row, int col, int num) {
-    for (int i = 0; i < grid_size * grid_size; i++) {
+    for (int i = 0; i < block_size * block_size; i++) {
         if (board[row][i] == num || board[i][col] == num) {
             return false;
         }
     }
 
-    int start_row = row - row % grid_size;
-    int start_col = col - col % grid_size;
-    for (int i = 0; i < grid_size; i++) {
-        for (int j = 0; j < grid_size; j++) {
+    int start_row = row - row % block_size;
+    int start_col = col - col % block_size;
+    for (int i = 0; i < block_size; i++) {
+        for (int j = 0; j < block_size; j++) {
             if (board[i + start_row][j + start_col] == num) {
                 return false;
             }
@@ -40,7 +40,7 @@ bool Sudoku::is_valid(int row, int col, int num) {
 }
 
 bool Sudoku::solve() {
-    int size = grid_size * grid_size;
+    int size = block_size * block_size;
     int *possible_nums = new int[size];
     for (int i = 0; i < size; i++) {
         possible_nums[i] = i + 1;
@@ -70,7 +70,7 @@ bool Sudoku::solve() {
 }
 
 void Sudoku::clear() {
-    int size = grid_size * grid_size;
+    int size = block_size * block_size;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             board[i][j] = 0;
@@ -79,20 +79,11 @@ void Sudoku::clear() {
 }
 
 void Sudoku::display() {
-    int size = grid_size * grid_size;
+    int size = block_size * block_size;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             std::cout << board[i][j] << " ";
         }
         std::cout << std::endl;
     }
-}
-
-Sudoku::Sudoku() {}
-
-Sudoku::~Sudoku() {
-    for (int i = 0; i < grid_size * grid_size; i++) {
-        delete[] board[i];
-    }
-    delete[] board;
 }

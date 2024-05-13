@@ -20,6 +20,7 @@ set(SOURCE_FILES
 	src/sudoku.cpp 
 	src/vector2d.cpp
 	src/play.cpp
+	src/grid.cpp
 	src/main.cpp
 )
 
@@ -31,6 +32,10 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/vendor/sdl/CMakeLists.txt")
 endif()
 
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/vendor/sdl_image/CMakeLists.txt")
+	message(FATAL_ERROR "Unable to locate the SDL3 submodule in filesystem. Try running `git submodule update --init --recursive`.")
+endif()
+
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/vendor/sdl_ttf/CMakeLists.txt")
 	message(FATAL_ERROR "Unable to locate the SDL3 submodule in filesystem. Try running `git submodule update --init --recursive`.")
 endif()
 
