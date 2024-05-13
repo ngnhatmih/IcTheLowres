@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
 
     while(game.running())
     {
+        game.render();
         game.handleEvents();
         game.update();
     }

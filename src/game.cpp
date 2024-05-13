@@ -23,8 +23,7 @@ bool Game::init(const char *title, int width, int height) {
         }
     }
     else { return false; }
-
-    SDL_SetRenderDrawColor(g_renderer, 0, 20, 255, SDL_ALPHA_OPAQUE);
+    
     input = new Input();
     current_state = new MainMenu();
     return true;
@@ -50,4 +49,7 @@ void Game::clean() {
     SDL_Quit();
 }
 
-Game::~Game() {}
+Game::~Game() {
+    delete input;
+    delete current_state;
+}

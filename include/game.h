@@ -22,6 +22,8 @@ public:
     bool running() { return is_running; }
     void setRunning(bool running) { is_running = running; }
 
+    SDL_Renderer *getRenderer() { return g_renderer; }
+
 private:
     Game();
     ~Game();
