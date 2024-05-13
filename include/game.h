@@ -21,6 +21,7 @@ public:
     void clean();
     bool running() { return is_running; }
     void setRunning(bool running) { is_running = running; }
+    void changeState(State *state);
 
     SDL_Renderer *getRenderer() { return g_renderer; }
     SDL_Window *getWindow() { return g_window; }

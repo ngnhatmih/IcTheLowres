@@ -1,11 +1,10 @@
 #ifndef MAIN_MENU_H
 #define MAIN_MENU_H
 
-#define BUTTON_WIDTH 200
-#define BUTTON_HEIGHT 15
+#define BUTTON_WIDTH 100
+#define BUTTON_HEIGHT 25
 
 #include "state.h"
-#include "game.h"
 
 struct Button {
     SDL_FRect rect;

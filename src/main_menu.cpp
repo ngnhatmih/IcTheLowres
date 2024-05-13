@@ -1,4 +1,6 @@
 #include "main_menu.h"
+#include "game.h"
+#include "play.h"
 
 MainMenu::MainMenu() {
     play_button = 
@@ -15,6 +17,10 @@ MainMenu::~MainMenu() {
 }
 
 void MainMenu::update() {
+    if (play_button.pressed) {
+        Game::getInstance().changeState(new Play());
+    }
+
     Vector2D *pos = Game::getInstance().getInput()->getMousePosition();
     if (pos->getX() > play_button.rect.x && pos->getX() < play_button.rect.x + play_button.rect.w &&
         pos->getY() > play_button.rect.y && pos->getY() < play_button.rect.y + play_button.rect.h) {
@@ -49,6 +55,9 @@ void MainMenu::render() {
 
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), play_button.color.r, play_button.color.g, play_button.color.b, play_button.color.a);
     SDL_RenderFillRect(Game::getInstance().getRenderer(), &play_button.rect);
+
+    // dark grey
+    SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 44, 44, 44, 255);
 }
 
 void MainMenu::clean() {

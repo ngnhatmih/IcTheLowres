@@ -34,7 +34,6 @@ void Game::render() {
     SDL_RenderClear(g_renderer);
     // draw new frame
     current_state->render();
-    SDL_SetRenderDrawColor(g_renderer, 255, 0, 0, 255);
     SDL_RenderPresent(g_renderer);
 }
 
@@ -52,6 +51,11 @@ void Game::clean() {
     SDL_DestroyRenderer(g_renderer);
     SDL_DestroyWindow(g_window);
     SDL_Quit();
+}
+
+void Game::changeState(State *state) {
+    delete current_state;
+    current_state = state;
 }
 
 Game::~Game() {
