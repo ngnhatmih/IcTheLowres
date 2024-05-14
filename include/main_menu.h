@@ -9,6 +9,8 @@
 struct Button {
     SDL_FRect rect;
     SDL_Color color;
+    SDL_Texture *text;
+    SDL_Color text_color;
     bool pressed;
     bool hover;
 };

@@ -42,22 +42,28 @@ endif()
 # No need to build tests when bulding SDL
 option(SDL_TEST OFF)
 
+# My cmake cant find it so i have to do it manually
+set(FREETYPE_LIBRARY ${PROJECT_SOURCE_DIR}/vendor/freetype/lib/freetype.lib)
+set(FREETYPE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/vendor/freetype/include)
+
 # Build the submodules along with the project
 add_subdirectory(vendor/sdl)
 add_subdirectory(vendor/sdl_image)
+add_subdirectory(vendor/sdl_ttf)
 
-# Force minimum compatability to be with C++14
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_14)
+# Force minimum compatability to be with C++17
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 # Add includes for the project
 target_include_directories(
 	${PROJECT_NAME} PRIVATE include
 	${PROJECT_NAME} PRIVATE vendor/sdl/include
 	${PROJECT_NAME} PRIVATE vendor/sdl_image/include
+	${PROJECT_NAME} PRIVATE vendor/sdl_ttf/include
 )
 
 # Add and link libraries to project
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3 SDL3_image::SDL3_image SDL3_ttf::SDL3_ttf)
 
 # Enable lto on the target if supported (in Release mode)
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

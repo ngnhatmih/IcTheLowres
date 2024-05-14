@@ -1,19 +1,25 @@
 #include "main_menu.h"
 #include "game.h"
 #include "play.h"
+#include "SDL3_ttf/SDL_ttf.h"
 
 MainMenu::MainMenu() {
+    TTF_Font* font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
+    SDL_Surface *tmp = TTF_RenderText_Solid(font, "Play", {255, 255, 255, 255});
     play_button = 
-    { // why this is able to do
+    { 
         {(WINDOW_WIDTH-BUTTON_WIDTH)/2., (WINDOW_HEIGHT-BUTTON_HEIGHT)/2., BUTTON_WIDTH, BUTTON_HEIGHT}, // rect
         {22, 22, 22, 255}, // color
+        SDL_CreateTextureFromSurface(Game::getInstance().getRenderer(), tmp), // text
+        {255, 255, 255, 255}, // text color
         false, // pressed
         false // hover
     };
+    SDL_DestroySurface(tmp);
 }
 
 MainMenu::~MainMenu() {
-    
+    SDL_DestroyTexture(play_button.text);
 }
 
 void MainMenu::update() {
@@ -57,8 +63,12 @@ void MainMenu::render() {
     // SDL_Texture *button_texture = SDL_CreateTextureFromSurface(Game::getInstance().getRenderer(), tmp);
     // SDL_DestroySurface(tmp);
 
+    // draw play button
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), play_button.color.r, play_button.color.g, play_button.color.b, play_button.color.a);
     SDL_RenderFillRect(Game::getInstance().getRenderer(), &play_button.rect);
+
+    // draw text
+    SDL_RenderTexture(Game::getInstance().getRenderer(), play_button.text, 0, &play_button.rect);
 
     // dark grey background
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 44, 44, 44, 255);
@@ -66,4 +76,5 @@ void MainMenu::render() {
 
 void MainMenu::clean() {
     // Clean up the main menu
+    
 }
