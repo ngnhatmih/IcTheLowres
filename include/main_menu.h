@@ -2,7 +2,7 @@
 #define MAIN_MENU_H
 
 #define BUTTON_WIDTH 100
-#define BUTTON_HEIGHT 25
+#define BUTTON_HEIGHT 50
 
 #include "state.h"
 

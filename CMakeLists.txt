@@ -17,7 +17,7 @@ set(SOURCE_FILES
 	src/main_menu.cpp
 	src/game.cpp
 	src/input.cpp
-	src/sudoku.cpp 
+	src/sudoku.cpp
 	src/vector2d.cpp
 	src/play.cpp
 	src/grid.cpp
@@ -42,9 +42,8 @@ endif()
 # No need to build tests when bulding SDL
 option(SDL_TEST OFF)
 
-# My cmake cant find it so i have to do it manually
-set(FREETYPE_LIBRARY ${PROJECT_SOURCE_DIR}/vendor/freetype/lib/freetype.lib)
-set(FREETYPE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/vendor/freetype/include)
+# By turning on this, it will use the vendor from its own source instead
+set(SDL3TTF_VENDORED ON)
 
 # Build the submodules along with the project
 add_subdirectory(vendor/sdl)

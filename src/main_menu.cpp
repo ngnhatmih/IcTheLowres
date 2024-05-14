@@ -4,6 +4,7 @@
 #include "SDL3_ttf/SDL_ttf.h"
 
 MainMenu::MainMenu() {
+    TTF_Init();
     TTF_Font* font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 24);
     SDL_Surface *tmp = TTF_RenderText_Solid(font, "Play", {255, 255, 255, 255});
     play_button = 
@@ -20,6 +21,7 @@ MainMenu::MainMenu() {
 
 MainMenu::~MainMenu() {
     SDL_DestroyTexture(play_button.text);
+    TTF_Quit();
 }
 
 void MainMenu::update() {
