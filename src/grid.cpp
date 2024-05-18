@@ -25,6 +25,8 @@ Grid::Grid(int block_size, float cell_size) {
                 cell_size,
                 cell_size
             };
+            board[i][j].col = j;
+            board[i][j].row = i;
             board[i][j].hovering = false;
             board[i][j].hidden = false;
         }
@@ -37,14 +39,12 @@ Grid::Grid(int block_size, float cell_size) {
             }
         }
     }
-    
+
     selected_cell = 0;
+    hovering_cell = 0;
 
     TTF_Init();
     font = TTF_OpenFont("assets/fonts/Roboto-Black.ttf", 60);
-    if (font == nullptr) {
-        SDL_Log("Failed to load font: %s", TTF_GetError());
-    }
 }
 
 Grid::Grid() {
@@ -81,19 +81,38 @@ void Grid::update() {
                     Game::getInstance().getInput()->getMousePosition()->getX() < cell->rect.x + cell->rect.w &&
                     Game::getInstance().getInput()->getMousePosition()->getY() > cell->rect.y &&
                     Game::getInstance().getInput()->getMousePosition()->getY() < cell->rect.y + cell->rect.h) {
-                    cell->hovering = true;
+                    hovering_cell = cell;
                     if (Game::getInstance().getInput()->getMouseButtonDown(MouseButtons::LEFT)) 
+                    {
                         selected_cell = cell;
-
-                } else {
-                    cell->hovering = false;
+                        selected_border_color = {0, 255, 0, 255};
+                    }
+                        
+ 
                 }
             }
         }
+    } else {
+        hovering_cell = nullptr;
     }
 
     if (Game::getInstance().getInput()->getMouseButtonDown(MouseButtons::RIGHT)) {
         selected_cell = nullptr;
+    }
+
+    if (selected_cell != nullptr) {
+        for (int i = 30; i < 39; i++) {
+            if (Game::getInstance().getInput()->isKeyDown((SDL_Scancode) i)) {
+                if (selected_cell->hidden) {
+                    if (i - 29 == sudoku->get_cell(selected_cell->row, selected_cell->col)) {
+                        selected_cell->hidden = false;
+                        selected_border_color = {0, 255, 0, 255};
+                    } else {
+                        selected_border_color = {255, 0, 0, 255};
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -113,14 +132,12 @@ void Grid::render() {
     }
 
     // Paint hovering cell
-    Cell *tmp = hoveringCell();
-    if (hovering && tmp != nullptr) {
-        SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 255, 255, 255, 20); // why the alpha is not being alpha
-        SDL_RenderFillRect(Game::getInstance().getRenderer(), &tmp->rect); // it should mix with the bg color right?
+    if (hovering_cell != nullptr) {
+        SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 255, 255, 255, 20); 
+        SDL_RenderFillRect(Game::getInstance().getRenderer(), &hovering_cell->rect); 
     }
 
-    // green
-    SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 0, 255, 0, 255);
+    SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), selected_border_color.r, selected_border_color.g, selected_border_color.b, selected_border_color.a);
 
     // Draw selected cell border
     float offset = 2.f;
@@ -164,17 +181,4 @@ void Grid::render() {
 
 void Grid::clean() {
 
-}
-
-Cell *Grid::hoveringCell() {
-    for (int i = 0; i < sudoku->get_block_size() * sudoku->get_block_size(); i++) {
-        for (int j = 0; j < sudoku->get_block_size() * sudoku->get_block_size(); j++) {
-            Cell *cell = &board[i][j];
-            if (cell->hovering) {
-                return cell;
-            }
-        }
-    }
-
-    return nullptr;
 }

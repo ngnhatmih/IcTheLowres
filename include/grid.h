@@ -8,6 +8,8 @@
 
 struct Cell {
     SDL_FRect rect;
+    int col;
+    int row;
     bool hovering;
     bool hidden;
 };
@@ -22,8 +24,6 @@ public:
     void render();
     void clean();
 
-    Cell *hoveringCell();
-
 private:
     SDL_FRect grid_rect;
     bool hovering;
@@ -31,6 +31,8 @@ private:
 
     Cell **board;
     Cell *selected_cell;
+    Cell *hovering_cell;
+    SDL_Color selected_border_color;
     float cell_size;
 
     TTF_Font *font;

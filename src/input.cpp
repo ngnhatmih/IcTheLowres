@@ -20,6 +20,12 @@ void Input::update()
             case SDL_EVENT_MOUSE_BUTTON_UP:
                 onMouseButtonUp(event);
                 break;
+            case SDL_EVENT_KEY_DOWN:
+                onKeyDown(event);
+                break;
+            case SDL_EVENT_KEY_UP:
+                onKeyUp(event);
+                break;
             default:
                 break;
         }
@@ -68,12 +74,25 @@ void Input::onMouseButtonUp(SDL_Event &event)
     }
 }
 
+void Input::onKeyDown(SDL_Event &event)
+{
+    keystates = SDL_GetKeyboardState(0);
+}
+
+void Input::onKeyUp(SDL_Event &event)
+{
+    keystates = SDL_GetKeyboardState(0);
+}
+
+
 Input::Input()
 {
     mouse_position = new Vector2D(0, 0);
     mouse_buttons.push_back(false);
     mouse_buttons.push_back(false);
     mouse_buttons.push_back(false);
+
+    keystates = SDL_GetKeyboardState(0);
 }
 
 Input::~Input()
