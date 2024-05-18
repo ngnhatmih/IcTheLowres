@@ -48,11 +48,11 @@ bool Sudoku::solve() {
 
     std::random_device rd;
     std::mt19937 g(rd());
-    
+
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             if (board[i][j] == 0) {
-                std::shuffle(possible_nums, possible_nums + size, std::default_random_engine());
+                std::shuffle(possible_nums, possible_nums + size, g);
                 for (int k = 0; k < size; k++) {
                     if (is_valid(i, j, possible_nums[k])) {
                         board[i][j] = possible_nums[k];

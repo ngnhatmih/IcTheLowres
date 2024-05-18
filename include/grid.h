@@ -9,6 +9,7 @@
 struct Cell {
     SDL_FRect rect;
     bool hovering;
+    bool hidden;
 };
 
 class Grid {

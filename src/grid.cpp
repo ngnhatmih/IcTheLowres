@@ -26,9 +26,18 @@ Grid::Grid(int block_size, float cell_size) {
                 cell_size
             };
             board[i][j].hovering = false;
+            board[i][j].hidden = false;
         }
     }
 
+    for (int i = 0; i < block_size * block_size; i++) {
+        for (int j = 0; j < block_size * block_size; j++) {
+            if (rand() % 2 == 0) {
+                board[i][j].hidden = true;
+            }
+        }
+    }
+    
     selected_cell = 0;
 
     TTF_Init();
@@ -142,7 +151,7 @@ void Grid::render() {
         for (int j = 0; j < sudoku->get_block_size() * sudoku->get_block_size(); j++) {
             Cell *cell = &board[i][j];
             SDL_FRect text_rect = {cell->rect.x + cell->rect.w / 2 - 10, cell->rect.y + cell->rect.h / 2 - 10, 20, 20};
-            if (sudoku->get_cell(i, j) != 0) {
+            if (!cell->hidden) {
                 tmp_surf = TTF_RenderText_Solid(font, std::to_string(sudoku->get_cell(i, j)).c_str(), color);
                 texture = SDL_CreateTextureFromSurface(Game::getInstance().getRenderer(), tmp_surf);
                 SDL_RenderTexture(Game::getInstance().getRenderer(), texture, nullptr, &text_rect);
