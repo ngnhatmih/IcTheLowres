@@ -184,7 +184,14 @@ void Grid::render() {
 
             SDL_FRect text_rect = {cell->rect.x + cell->rect.w / 2 - 10, cell->rect.y + cell->rect.h / 2 - 10, 20, 20};
             if (!cell->hidden) {
-                tmp_surf = TTF_RenderText_Solid(font, std::to_string(sudoku->get_cell(i, j)).c_str(), color);
+                const char *num = "";
+                if (sudoku->get_cell(i, j) < 10) {
+                    num = std::to_string(sudoku->get_cell(i, j)).c_str();
+                } else if (sudoku->get_cell(i, j) < 26){
+                    char c = 'A' + sudoku->get_cell(i, j) - 10;
+                    num = &c;
+                }
+                tmp_surf = TTF_RenderText_Solid(font, num, color);
                 texture = SDL_CreateTextureFromSurface(Game::getInstance().getRenderer(), tmp_surf);
                 SDL_RenderTexture(Game::getInstance().getRenderer(), texture, nullptr, &text_rect);
                 SDL_DestroySurface(tmp_surf);
