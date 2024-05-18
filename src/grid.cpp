@@ -121,14 +121,23 @@ void Grid::render() {
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 22, 22, 22, 255);
     SDL_RenderFillRect(Game::getInstance().getRenderer(), &grid_rect);
 
-    // Paint grid lines
+    // Draw grid lines
     SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 44, 44, 44, 255);
-    for (int x = grid_rect.x; x < grid_rect.x + grid_rect.w; x += cell_size) {
-        SDL_RenderLine(Game::getInstance().getRenderer(), x, grid_rect.y, x, grid_rect.y + grid_rect.h);
+    for (int i = 0; i < sudoku->get_block_size() * sudoku->get_block_size(); i++) {
+        SDL_RenderLine(Game::getInstance().getRenderer(), grid_rect.x + i * cell_size, grid_rect.y, grid_rect.x + i * cell_size, grid_rect.y + grid_rect.h);
     }
 
-    for (int y = grid_rect.y; y < grid_rect.y + grid_rect.h; y += cell_size) {
-        SDL_RenderLine(Game::getInstance().getRenderer(), grid_rect.x, y, grid_rect.x + grid_rect.w, y);
+    for (int i = 0; i < sudoku->get_block_size() * sudoku->get_block_size(); i++) {
+        SDL_RenderLine(Game::getInstance().getRenderer(), grid_rect.x, grid_rect.y + i * cell_size, grid_rect.x + grid_rect.w, grid_rect.y + i * cell_size);
+    }
+    
+    SDL_SetRenderDrawColor(Game::getInstance().getRenderer(), 255, 255, 255, 255);
+    for (int i = 1; i < sudoku->get_block_size(); i++) {
+        SDL_RenderLine(Game::getInstance().getRenderer(), grid_rect.x + i * cell_size * sudoku->get_block_size(), grid_rect.y, grid_rect.x + i * cell_size * sudoku->get_block_size(), grid_rect.y + grid_rect.h);
+    }
+
+    for (int i = 1; i < sudoku->get_block_size(); i++) {
+        SDL_RenderLine(Game::getInstance().getRenderer(), grid_rect.x, grid_rect.y + i * cell_size * sudoku->get_block_size(), grid_rect.x + grid_rect.w, grid_rect.y + i * cell_size * sudoku->get_block_size());
     }
 
     // Paint hovering cell
@@ -167,6 +176,12 @@ void Grid::render() {
     for (int i = 0; i < sudoku->get_block_size() * sudoku->get_block_size(); i++) {
         for (int j = 0; j < sudoku->get_block_size() * sudoku->get_block_size(); j++) {
             Cell *cell = &board[i][j];
+            if (selected_cell != nullptr && sudoku->get_cell(i, j) == sudoku->get_cell(selected_cell->row, selected_cell->col) && !selected_cell->hidden) {
+                color.a = 255;
+            } else {
+                color.a = 100;  
+            }
+
             SDL_FRect text_rect = {cell->rect.x + cell->rect.w / 2 - 10, cell->rect.y + cell->rect.h / 2 - 10, 20, 20};
             if (!cell->hidden) {
                 tmp_surf = TTF_RenderText_Solid(font, std::to_string(sudoku->get_cell(i, j)).c_str(), color);
